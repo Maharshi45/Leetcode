@@ -23,10 +23,10 @@
 hs_err_pid*
 
 .metadata/
-*/bin/
-*/.settings/
-*/.classpath
-*/.project
+bin/
+.settings/
+.classpath
+.project
 
 # IntelliJ ignore files and folders
 *.iml
