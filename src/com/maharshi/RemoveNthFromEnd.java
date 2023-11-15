@@ -2,62 +2,47 @@ package com.maharshi;
 
 public class RemoveNthFromEnd {
 
-	public static ListNode reverseLinkedList(ListNode node) {
-		ListNode prev = null;
-		ListNode current = node;
-		ListNode next = null;
-		while (current != null) {
-			next = current.next;
-			current.next = prev;
-			prev = current;
-			current = next;
-		}
-		node = prev;
-		return node;
-	}
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
 
-	public static ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode fast = head;
+        ListNode slow = head;
 
-		head = reverseLinkedList(head);
-		ListNode current = head;
+        int i = 0;
+        while (i != n) {
+            fast = fast.next;
+            i++;
+        }
 
-		if (n == 1) {
-			head = head.next;
-		} else {
+        ListNode prev = null;
+        while (fast != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next;
+        }
 
-			int i = 1;
-			ListNode prev = null;
-			while (i != n) {
-				prev = current;
-				current = current.next;
-				i++;
-			}
-			if (current == null)
-				prev.next = null;
-			else
-				prev.next = current.next;
-			current.next = null;
-		}
-		head = reverseLinkedList(head);
+        if (prev != null) {
+            prev.next = slow.next;
+            slow.next = null;
+        } else {
+            head = head.next;
+        }
 
-		return head;
-	}
+        return head;
+    }
 
-	public static void main(String[] args) {
-		ListNode head = new ListNode(1);
-		head.next = new ListNode(2);
-		head.next.next = new ListNode(3);
-		head.next.next.next = new ListNode(4);
-		head.next.next.next.next = new ListNode(5);
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
 
-		head = removeNthFromEnd(head, 1);
+        ListNode current = removeNthFromEnd(head, 3);
+        while (current != null) {
+            System.out.println(current.val);
+            current = current.next;
+        }
 
-		ListNode current = head;
-		while (current != null) {
-			System.out.println(current.val);
-			current = current.next;
-		}
-
-	}
+    }
 
 }
